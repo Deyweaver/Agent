@@ -19,8 +19,22 @@ import 'virtual:uno.css';
 export const links: LinksFunction = () => [
   {
     rel: 'icon',
-    href: '/favicon.svg',
-    type: 'image/svg+xml',
+    href: '/favicon.ico',
+    type: 'image/x-icon',
+  },
+  {
+    rel: 'icon',
+    href: '/favicon.png',
+    type: 'image/png',
+  },
+  {
+    rel: 'apple-touch-icon',
+    href: '/favicon.png',
+    sizes: '180x180',
+  },
+  {
+    rel: 'apple-touch-icon-precomposed',
+    href: '/favicon.png',
   },
   { rel: 'stylesheet', href: reactToastifyStyles },
   { rel: 'stylesheet', href: tailwindReset },

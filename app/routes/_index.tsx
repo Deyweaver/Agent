@@ -3,10 +3,21 @@ import { ClientOnly } from 'remix-utils/client-only';
 import { BaseChat } from '~/components/chat/BaseChat';
 import { Chat } from '~/components/chat/Chat.client';
 import { Header } from '~/components/header/Header';
-import BackgroundRays from '~/components/ui/BackgroundRays';
+// import BackgroundRays from '~/components/ui/BackgroundRays'; // Removed for performance
 
 export const meta: MetaFunction = () => {
-  return [{ title: 'Bolt' }, { name: 'description', content: 'Talk with Bolt, an AI assistant from StackBlitz' }];
+  return [
+    { title: 'CODO' }, 
+    { name: 'description', content: 'Talk with CODO, an AI assistant from StackBlitz' },
+    { property: 'og:title', content: 'CODO' },
+    { property: 'og:description', content: 'Talk with CODO, an AI assistant from StackBlitz' },
+    { property: 'og:image', content: '/logo-light.png' },
+    { property: 'og:type', content: 'website' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'CODO' },
+    { name: 'twitter:description', content: 'Talk with CODO, an AI assistant from StackBlitz' },
+    { name: 'twitter:image', content: '/logo-light.png' },
+  ];
 };
 
 export const loader = () => json({});
@@ -20,7 +31,7 @@ export const loader = () => json({});
 export default function Index() {
   return (
     <div className="flex flex-col h-full w-full bg-bolt-elements-background-depth-1">
-      <BackgroundRays />
+      {/* BackgroundRays component removed for performance optimization */}
       <Header />
       <ClientOnly fallback={<BaseChat />}>{() => <Chat />}</ClientOnly>
     </div>
