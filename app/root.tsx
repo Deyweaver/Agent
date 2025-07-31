@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ClientOnly } from 'remix-utils/client-only';
+import { AuthProvider } from './lib/firebase/auth';
 
 import reactToastifyStyles from 'react-toastify/dist/ReactToastify.css?url';
 import globalStyles from './styles/index.scss?url';
@@ -88,7 +89,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <ClientOnly>{() => <DndProvider backend={HTML5Backend}>{children}</DndProvider>}</ClientOnly>
+      <ClientOnly>
+        {() => (
+          <DndProvider backend={HTML5Backend}>
+            <AuthProvider>
+              {children}
+            </AuthProvider>
+          </DndProvider>
+        )}
+      </ClientOnly>
       <ScrollRestoration />
       <Scripts />
     </>
