@@ -25,6 +25,24 @@ export const LoginForm: React.FC = () => {
             Firebase authentication is not configured. Please set up your Firebase credentials to enable user
             authentication.
           </p>
+          <div className="mt-4 p-4 bg-bolt-elements-background-depth-2 rounded-lg text-left">
+            <p className="text-sm text-bolt-elements-textSecondary mb-2">
+              <strong>For Cloudflare Pages deployment:</strong>
+            </p>
+            <ol className="text-xs text-bolt-elements-textSecondary space-y-1 list-decimal list-inside">
+              <li>Go to Cloudflare Dashboard → Pages → Your project</li>
+              <li>Navigate to Settings → Environment variables</li>
+              <li>Add the Firebase environment variables for Production</li>
+              <li>Save and redeploy</li>
+            </ol>
+            <p className="text-xs text-bolt-elements-textSecondary mt-3">
+              Check the browser console for more debugging information or visit{' '}
+              <Link to="/debug/firebase" className="text-bolt-elements-link hover:text-bolt-elements-linkActive">
+                /debug/firebase
+              </Link>{' '}
+              for detailed configuration status.
+            </p>
+          </div>
           <Link
             to="/"
             className="mt-6 inline-block px-4 py-2 text-sm font-medium text-bolt-elements-link hover:text-bolt-elements-linkActive"
