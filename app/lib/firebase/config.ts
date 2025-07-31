@@ -14,7 +14,7 @@ const firebaseConfig = {
 
 // Validate that required configuration is present
 const requiredKeys = ['apiKey', 'authDomain', 'projectId'];
-const missingKeys = requiredKeys.filter(key => !firebaseConfig[key as keyof typeof firebaseConfig]);
+const missingKeys = requiredKeys.filter((key) => !firebaseConfig[key as keyof typeof firebaseConfig]);
 
 if (missingKeys.length > 0) {
   console.warn(`Firebase configuration missing required keys: ${missingKeys.join(', ')}`);

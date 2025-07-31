@@ -3,11 +3,12 @@ import { ClientOnly } from 'remix-utils/client-only';
 import { BaseChat } from '~/components/chat/BaseChat';
 import { Chat } from '~/components/chat/Chat.client';
 import { Header } from '~/components/header/Header';
+
 // import BackgroundRays from '~/components/ui/BackgroundRays'; // Removed for performance
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'CODO' }, 
+    { title: 'CODO' },
     { name: 'description', content: 'Talk with CODO, an AI assistant from StackBlitz' },
     { property: 'og:title', content: 'CODO' },
     { property: 'og:description', content: 'Talk with CODO, an AI assistant from StackBlitz' },

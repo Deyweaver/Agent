@@ -1,12 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { 
-  type User, 
-  signInWithEmailAndPassword, 
+import {
+  type User,
+  signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
   sendPasswordResetEmail,
-  type AuthError
+  type AuthError,
 } from 'firebase/auth';
 import { auth } from './config';
 
@@ -24,9 +24,11 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
+
   if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
+
   return context;
 };
 
@@ -43,6 +45,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (!auth) {
       throw new Error('Firebase authentication is not configured');
     }
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
@@ -55,6 +58,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (!auth) {
       throw new Error('Firebase authentication is not configured');
     }
+
     try {
       await createUserWithEmailAndPassword(auth, email, password);
     } catch (error) {
@@ -67,6 +71,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (!auth) {
       throw new Error('Firebase authentication is not configured');
     }
+
     try {
       await signOut(auth);
     } catch (error) {
@@ -79,6 +84,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (!auth) {
       throw new Error('Firebase authentication is not configured');
     }
+
     try {
       await sendPasswordResetEmail(auth, email);
     } catch (error) {
@@ -90,7 +96,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     if (!auth) {
       setLoading(false);
-      return;
+      return undefined;
     }
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -111,11 +117,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     firebaseEnabled,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
 };
 
 // Helper function to convert Firebase auth errors to user-friendly messages

@@ -11,7 +11,7 @@ export const UserMenu: React.FC = () => {
     try {
       await logout();
       toast.success('Successfully logged out');
-    } catch (error) {
+    } catch {
       toast.error('Failed to log out');
     }
     setIsOpen(false);
@@ -63,17 +63,12 @@ export const UserMenu: React.FC = () => {
 
       {isOpen && (
         <>
-          <div
-            className="fixed inset-0 z-10"
-            onClick={() => setIsOpen(false)}
-          />
+          <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
           <div className="absolute right-0 mt-2 w-48 bg-bolt-elements-background-depth-2 rounded-md shadow-lg border border-bolt-elements-borderColor z-20">
             <div className="py-1">
               <div className="px-4 py-2 text-sm text-bolt-elements-textSecondary border-b border-bolt-elements-borderColor">
                 Signed in as
-                <div className="font-medium text-bolt-elements-textPrimary truncate">
-                  {currentUser.email}
-                </div>
+                <div className="font-medium text-bolt-elements-textPrimary truncate">{currentUser.email}</div>
               </div>
               <button
                 onClick={handleLogout}

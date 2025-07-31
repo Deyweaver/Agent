@@ -92,9 +92,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <ClientOnly>
         {() => (
           <DndProvider backend={HTML5Backend}>
-            <AuthProvider>
-              {children}
-            </AuthProvider>
+            <AuthProvider>{children}</AuthProvider>
           </DndProvider>
         )}
       </ClientOnly>

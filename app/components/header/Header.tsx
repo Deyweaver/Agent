@@ -39,9 +39,7 @@ export function Header() {
         </>
       )}
       <div className="ml-auto">
-        <ClientOnly fallback={<div className="w-20 h-10" />}>
-          {() => <UserMenu />}
-        </ClientOnly>
+        <ClientOnly fallback={<div className="w-20 h-10" />}>{() => <UserMenu />}</ClientOnly>
       </div>
     </header>
   );
