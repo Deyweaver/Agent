@@ -6,14 +6,17 @@ import {
   signOut,
   onAuthStateChanged,
   sendPasswordResetEmail,
+  signInWithPopup,
   type AuthError,
 } from 'firebase/auth';
-import { auth } from './config';
+import { auth, googleProvider, githubProvider } from './config';
 
 interface AuthContextType {
   currentUser: User | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
+  loginWithGoogle: () => Promise<void>;
+  loginWithGithub: () => Promise<void>;
   register: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
@@ -48,6 +51,32 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      const authError = error as AuthError;
+      throw new Error(getAuthErrorMessage(authError));
+    }
+  };
+
+  const loginWithGoogle = async (): Promise<void> => {
+    if (!auth || !googleProvider) {
+      throw new Error('Firebase authentication is not configured');
+    }
+
+    try {
+      await signInWithPopup(auth, googleProvider);
+    } catch (error) {
+      const authError = error as AuthError;
+      throw new Error(getAuthErrorMessage(authError));
+    }
+  };
+
+  const loginWithGithub = async (): Promise<void> => {
+    if (!auth || !githubProvider) {
+      throw new Error('Firebase authentication is not configured');
+    }
+
+    try {
+      await signInWithPopup(auth, githubProvider);
     } catch (error) {
       const authError = error as AuthError;
       throw new Error(getAuthErrorMessage(authError));
@@ -111,6 +140,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     currentUser,
     loading,
     login,
+    loginWithGoogle,
+    loginWithGithub,
     register,
     logout,
     resetPassword,
@@ -135,6 +166,14 @@ const getAuthErrorMessage = (error: AuthError): string => {
       return 'Invalid email address.';
     case 'auth/too-many-requests':
       return 'Too many failed attempts. Please try again later.';
+    case 'auth/popup-closed-by-user':
+      return 'Sign-in popup was closed before completing authentication.';
+    case 'auth/popup-blocked':
+      return 'Sign-in popup was blocked. Please allow popups for this site.';
+    case 'auth/cancelled-popup-request':
+      return 'Sign-in was cancelled.';
+    case 'auth/account-exists-with-different-credential':
+      return 'An account already exists with the same email but different sign-in credentials.';
     default:
       return error.message || 'An error occurred during authentication.';
   }

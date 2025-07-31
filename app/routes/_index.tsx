@@ -3,6 +3,7 @@ import { ClientOnly } from 'remix-utils/client-only';
 import { BaseChat } from '~/components/chat/BaseChat';
 import { Chat } from '~/components/chat/Chat.client';
 import { Header } from '~/components/header/Header';
+import { ProtectedRoute } from '~/components/auth/ProtectedRoute';
 
 // import BackgroundRays from '~/components/ui/BackgroundRays'; // Removed for performance
 
@@ -31,10 +32,12 @@ export const loader = () => json({});
  */
 export default function Index() {
   return (
-    <div className="flex flex-col h-full w-full bg-bolt-elements-background-depth-1">
-      {/* BackgroundRays component removed for performance optimization */}
-      <Header />
-      <ClientOnly fallback={<BaseChat />}>{() => <Chat />}</ClientOnly>
-    </div>
+    <ProtectedRoute>
+      <div className="flex flex-col h-full w-full bg-bolt-elements-background-depth-1">
+        {/* BackgroundRays component removed for performance optimization */}
+        <Header />
+        <ClientOnly fallback={<BaseChat />}>{() => <Chat />}</ClientOnly>
+      </div>
+    </ProtectedRoute>
   );
 }
