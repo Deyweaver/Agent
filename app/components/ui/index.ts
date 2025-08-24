@@ -33,6 +33,14 @@ export * from './SearchResultItem';
 export * from './StatusIndicator';
 export * from './TabsWithSlider';
 
+// Modern UI components
+export * from './ModernHero';
+export * from './GlassmorphismHeader';
+export * from './ParticleSystem';
+export * from './ModernChatInterface';
+export * from './FloatingCard';
+export * from './FeaturesSection';
+
 // Tooltip components
 export { default as WithTooltip } from './Tooltip';
 export { Tooltip } from './Tooltip';
